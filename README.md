@@ -7,13 +7,12 @@
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL-black?logo=three.js&logoColor=white)](https://threejs.org/)
-[![Vercel Ready](https://img.shields.io/badge/Vercel-Ready-black?logo=vercel&logoColor=white)](https://vercel.com)
-[![Render Ready](https://img.shields.io/badge/Render-Ready-46E3B7?logo=render&logoColor=white)](https://render.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-atom--visualizer--eight.vercel.app-0070F3?logo=vercel&logoColor=white)](https://atom-visualizer-eight.vercel.app/)
 [![Tests Passing](https://img.shields.io/badge/Tests-44%2F44%20Passed-brightgreen)](tests/)
 
 *An interactive, high-performance 3D visualizer for hydrogen atomic orbitals, exact wavefunctions, and physical quantum probability current streamlines.*
 
-[**Live Web App**](#web-application-threejs--fastapi) • [**Visual Gallery**](#gallery-of-quantum-orbitals) • [**Video Demo**](#video-walkthrough) • [**Physics & Math**](#physics--mathematical-formulation) • [**Desktop App**](#desktop-python-viewer-pyvista)
+[**🚀 Live Interactive Demo**](https://atom-visualizer-eight.vercel.app/) • [**Visual Gallery**](#gallery-of-quantum-orbitals) • [**Video Demo**](#video-walkthrough) • [**Physics & Math**](#physics--mathematical-formulation) • [**Desktop App**](#desktop-python-viewer-pyvista)
 
 </div>
 
@@ -92,7 +91,10 @@ All images below are generated directly from our exact analytical simulation eng
 
 ## Web Application (Three.js + FastAPI)
 
-The web visualizer runs completely in the browser via WebGL and can be hosted locally or deployed to the cloud for free.
+The web visualizer runs completely in the browser via WebGL and can be accessed online with zero installation or run locally.
+
+### 🌐 Live Web App
+**Access the live visualizer anytime at:** [**https://atom-visualizer-eight.vercel.app/**](https://atom-visualizer-eight.vercel.app/)
 
 ### Run Locally
 ```bash
