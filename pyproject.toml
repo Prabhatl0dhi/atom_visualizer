@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atoms_py"
+version = "0.1.0"
+description = "Python port of Hydrogen Quantum Orbital Visualizer"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "pyvista>=0.43.0",
+    "matplotlib>=3.8.0",
+    "moderngl>=5.8.0",
+    "glfw>=2.6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+orbital-viewer = "atoms_py.app:main"
+orbital-bohr = "atoms_py.bohr2d:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["atoms_py*"]
+exclude = ["reference_repo*"]

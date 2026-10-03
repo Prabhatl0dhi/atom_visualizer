@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydrogen Quantum Orbital 3D</title>
+  <meta name="description" content="Interactive 3D Hydrogen Wavefunction & Quantum Probability Current Flow.">
+  
+  <!-- Monospace Font for clean scientific terminal look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Three.js & OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+
+  <!-- Fullscreen 3D Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Top-Left Scientific Monospace HUD -->
+  <div class="hud-top-left" id="hud-top-left">
+    <div class="hud-line"><span class="hud-key">Hydrogen Orbital:</span> <span id="val-label" class="hud-val">5d (m=1)</span></div>
+    <div class="hud-line"><span class="hud-key">Quantum Numbers:</span> <span id="val-qnums" class="hud-val">n=5, l=2, m=1</span></div>
+    <div class="hud-line"><span class="hud-key">Representation:</span> <span id="val-rep" class="hud-val">Complex Stationary State</span></div>
+    <div class="hud-line"><span class="hud-key">Energy:</span> <span id="val-energy" class="hud-val">-0.5442 eV  (-0.0200 Ha)</span></div>
+    <div class="hud-line"><span class="hud-key">Particles:</span> <span id="val-particles" class="hud-val">25,000 (Points)</span></div>
+    <div class="hud-line"><span class="hud-key">Cross-Section:</span> <span id="val-cutaway" class="hud-val">Full (X)</span></div>
+    <div class="hud-line"><span class="hud-key">Probability Flow:</span> <span id="val-flow" class="hud-val highlight">ACTIVE (v = j / rho) [Speed: 1.0x]</span></div>
+  </div>
+
+  <!-- Bottom-Left Minimalist Controls Guide -->
+  <div class="hud-bottom-left" id="hud-bottom-left">
+    <div class="ctrl-title">Controls:</div>
+    <div class="ctrl-row"><span>Space</span> : Pause / Resume Probability Current Flow (v = j / rho)</div>
+    <div class="ctrl-row"><span>W / S</span> : n (+/-)</div>
+    <div class="ctrl-row"><span>E / D</span> : l (+/-)</div>
+    <div class="ctrl-row"><span>R / F</span> : m (+/-)</div>
+    <div class="ctrl-row"><span>[ / ]</span> : Flow Speed (-/+)</div>
+    <div class="ctrl-row"><span>C</span>     : Toggle Real/Complex Form</div>
+    <div class="ctrl-row"><span>X</span>     : Cycle Cutaway Cross-Section (Full / Quadrant / Half)</div>
+    <div class="ctrl-row"><span>1/2/3/0</span> : Align View (1=Top/XY, 2=Front/XZ, 3=Side/YZ, 0=3D Iso)</div>
+    <div class="ctrl-row"><span>M</span>     : Cycle Colormap (<span id="val-cmap-name">inferno</span>)</div>
+    <div class="ctrl-row"><span>+ / -</span> : Particle Size (+/-)</div>
+    <div class="ctrl-row"><span>Mouse</span> : Left Drag (Orbit), Right Drag (Pan), Scroll (Zoom)</div>
+  </div>
+
+  <!-- Bottom-Center Clean Scalar Bar (Click to cycle colormap) -->
+  <div class="scalar-bar-container" id="scalar-container" title="Click to cycle color palette (HotKey: M)">
+    <div class="scalar-bar-title">|ψ|² Probability Density (<span id="val-cmap-badge">inferno</span>)</div>
+    <div class="scalar-bar" id="scalar-bar"></div>
+    <div class="scalar-labels">
+      <span>0.00</span>
+      <span>0.50</span>
+      <span>1.00</span>
+    </div>
+  </div>
+
+  <!-- Top-Right Minimal Quick Toolbar -->
+  <div class="top-toolbar">
+    <button id="btn-view-top" class="tool-btn" title="Top View (XY Plane)">Top (1)</button>
+    <button id="btn-view-front" class="tool-btn" title="Front View (XZ Plane)">Front (2)</button>
+    <button id="btn-view-side" class="tool-btn" title="Side View (YZ Plane)">Side (3)</button>
+    <button id="btn-reset-view" class="tool-btn" title="Isometric 3D View">3D Iso (0)</button>
+    <button id="btn-snapshot" class="tool-btn" title="Save PNG Screenshot">📸 Snapshot</button>
+    <button id="btn-toggle-menu" class="tool-btn" title="Toggle Sliders Drawer">⚙️ Sliders</button>
+  </div>
+
+  <!-- Optional Collapsible Sliders Drawer (Hidden by default for pristine clean view) -->
+  <div class="collapsible-drawer" id="sliders-drawer">
+    <div class="drawer-header">
+      <span>Quantum Controls</span>
+      <button id="btn-close-drawer" class="drawer-close">✕</button>
+    </div>
+    
+    <div class="drawer-row">
+      <label>n (Principal): <b id="drawer-val-n">5</b></label>
+      <input type="range" id="drawer-slider-n" min="1" max="7" value="5" step="1">
+    </div>
+
+    <div class="drawer-row">
+      <label>l (Azimuthal): <b id="drawer-val-l">2</b></label>
+      <input type="range" id="drawer-slider-l" min="0" max="4" value="2" step="1">
+    </div>
+
+    <div class="drawer-row">
+      <label>m (Magnetic): <b id="drawer-val-m">1</b></label>
+      <input type="range" id="drawer-slider-m" min="-2" max="2" value="1" step="1">
+    </div>
+
+    <div class="drawer-row">
+      <label>Flow Speed: <b id="drawer-val-speed">1.0x</b></label>
+      <input type="range" id="drawer-slider-speed" min="0.1" max="10.0" value="1.0" step="0.1">
+    </div>
+
+    <div class="drawer-row">
+      <label>Particle Size: <b id="drawer-val-size">2.0</b></label>
+      <input type="range" id="drawer-slider-size" min="0.8" max="5.0" value="2.0" step="0.2">
+    </div>
+
+    <div class="drawer-row">
+      <label>Particles: <b id="drawer-val-samples">25k</b></label>
+      <input type="range" id="drawer-slider-samples" min="5000" max="45000" value="25000" step="5000">
+    </div>
+
+    <div class="drawer-row">
+      <label>Colormap:</label>
+      <select id="drawer-select-cmap" class="drawer-select">
+        <option value="inferno" selected>Inferno (Thermal)</option>
+        <option value="viridis">Viridis (Classic Quantum)</option>
+        <option value="plasma">Plasma (Violet-Gold)</option>
+        <option value="magma">Magma (Neon Ember)</option>
+        <option value="cyberpunk">Cyberpunk (Cyan-Pink)</option>
+        <option value="emerald">Emerald (Matrix Glow)</option>
+        <option value="cosmic">Cosmic (Electric Blue)</option>
+        <option value="solar">Solar (Crimson Gold)</option>
+        <option value="turbo">Turbo (Rainbow)</option>
+        <option value="coolwarm">CoolWarm (Phase)</option>
+        <option value="hot">Hot (White Thermal)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading-overlay" id="loading-spinner">
+    <div class="spinner"></div>
+    <div class="loading-text">Computing exact quantum wavefunction...</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

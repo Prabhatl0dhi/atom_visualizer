@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and testing
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Environments and IDEs
+.venv/
+env/
+venv/
+ENV/
+.env
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary scratch media & tests
+scratch_*.png
+test_*.png
+Recording *.mp4
+*.log
+
+# Reference cloned repository
+reference_repo/
