@@ -130,13 +130,13 @@ Launch the interactive 3D desktop point-cloud visualizer:
 
 ```bash
 # Launch interactive 2pz orbital (default)
-python -m atoms_py.app
+python -m atoms_py
 
 # Launch 3dx2-y2 orbital with 80,000 particles and Plasma colormap
-python -m atoms_py.app -n 3 -l 2 -m 2 --colormap plasma -N 80000
+python -m atoms_py -n 3 -l 2 -m 2 --colormap plasma -N 80000
 
 # Launch complex 3d state (m = 1) with active probability current flow
-python -m atoms_py.app -n 3 -l 2 -m 1 --complex-form
+python -m atoms_py -n 3 -l 2 -m 1 --complex-form
 ```
 
 ### Desktop Keyboard Controls

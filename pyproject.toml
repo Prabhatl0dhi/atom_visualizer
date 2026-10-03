@@ -23,7 +23,7 @@ dev = [
 ]
 
 [project.scripts]
-orbital-viewer = "atoms_py.app:main"
+orbital-viewer = "atoms_py.cli:main"
 orbital-bohr = "atoms_py.bohr2d:main"
 
 [tool.setuptools.packages.find]
