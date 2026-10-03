@@ -76,9 +76,9 @@ All images below are generated directly from our exact analytical simulation eng
 
 ---
 
-### 2. High-$n$ Rydberg State & Cutaway Cross-Sections
+### 2. High-n Rydberg State & Cutaway Cross-Sections
 
-| MinutePhysics High-$n$ State ($n=5, l=2, m=1$) | Radial Nodal Cutaway ($3s$ Core Shells) |
+| MinutePhysics High-n State ($n=5, l=2, m=1$) | Radial Nodal Cutaway ($3s$ Core Shells) |
 |:---:|:---:|
 | ![High-n State](renders/minutephysics_n5_l2_m1.png) | ![Cutaway 3s](renders/demo_cutaway_3s.png) |
 | *Complex probability flow with active circulation* | *Stationary quadrant cut revealing concentric internal shells* |
@@ -101,7 +101,7 @@ python run_web.py
 This boots the local FastAPI server and opens `http://localhost:8000` automatically in your default browser.
 
 ### Key Web Features
-- **Physical Probability Current**: Particles circulate with exact quantum drift velocity $\mathbf{v} = \frac{\hbar m}{m_e r \sin\theta}\hat{\boldsymbol{\phi}}$ (scalable up to **10× speed**).
+- **Physical Probability Current**: Particles circulate with exact quantum drift velocity $\mathbf{v} = \frac{\hbar m}{m_e r \sin\theta} \hat{\phi}$ (scalable up to **10× speed**).
 - **11 Scientific Colormaps**: `Inferno`, `Viridis`, `Plasma`, `Magma`, `Cyberpunk`, `Emerald`, `Cosmic`, `Solar`, `Turbo`, `CoolWarm`, `Hot`.
 - **View Alignment Toolbar**: Quick 1-click alignments for `Top (1)`, `Front (2)`, `Side (3)`, and `3D Iso (0)`.
 - **Stationary Cutaway Cross-Sections**: Press <kbd>X</kbd> to toggle Full, Quadrant, or Half spatial cuts to inspect interior nodal spheres.
@@ -176,10 +176,10 @@ $$P(r) = r^2 |R_{nl}(r)|^2 \implies r_{\text{peak}} = n^2 a_0 \quad (\text{for c
 
 ### 4. Physical Quantum Probability Current Flow
 The probability current density $\mathbf{j}$ for a stationary state $\psi_{nlm}$ with azimuthal phase $e^{i m \phi}$ is:
-$$\mathbf{j} = \frac{\hbar}{m_e} \operatorname{Im}(\psi^* \nabla \psi) = \frac{\hbar m}{m_e r \sin\theta} |\psi|^2 \hat{\boldsymbol{\phi}}$$
+$$\mathbf{j} = \frac{\hbar}{m_e} \text{Im}(\psi^* \nabla \psi) = \frac{\hbar m}{m_e r \sin\theta} |\psi|^2 \hat{\phi}$$
 
 The corresponding particle drift velocity field is:
-$$\mathbf{v} = \frac{\mathbf{j}}{\rho} = \frac{\hbar m}{m_e r \sin\theta} \hat{\boldsymbol{\phi}} \implies \omega = \frac{d\phi}{dt} = \frac{m}{r^2 \sin^2 \theta}$$
+$$\mathbf{v} = \frac{\mathbf{j}}{\rho} = \frac{\hbar m}{m_e r \sin\theta} \hat{\phi} \implies \omega = \frac{d\phi}{dt} = \frac{m}{r^2 \sin^2 \theta}$$
 
 - For $m=0$ (or Real Cartesian orbitals): $\mathbf{v} = 0 \implies$ stationary cloud.
 - For $m \ne 0$: particles swirl azimuthally about the $Z$-axis, faster near the core and equator.
